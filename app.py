@@ -36,8 +36,10 @@ st.markdown(
 # ----------------------------
 load_dotenv()
 
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-POPPLER_BIN = r"C:\poppler\poppler-25.12.0\Library\bin"
+images = convert_from_bytes(pdf_bytes)
+text = ""
+for image in images:
+    text += pytesseract.image_to_string(image)
 
 api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
